@@ -45,7 +45,11 @@ class DashboardAPI:
         } if not df.empty else {"info": "No data"}
 
 # Streamlit UI
-st.set_page_config(page_title="InsightSynth Pro", layout="centered")
+st.set_page_config(
+    page_title="InsightSynth Pro",
+    layout="centered",
+    page_icon="🧠"
+)
 st.title("📊 InsightSynth Pro")
 
 user_id = st.text_input("Enter User ID")
