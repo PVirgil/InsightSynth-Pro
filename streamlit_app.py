@@ -1,12 +1,13 @@
 import streamlit as st
-import openai
 import os
 from dotenv import load_dotenv
 import pandas as pd
+from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
 
 # Simulated dashboard logic
 class InsightGenerator:
@@ -24,14 +25,14 @@ class ChatAgent:
     @staticmethod
     def reply(user_id: str, message: str) -> str:
         try:
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "You are a business intelligence assistant."},
                     {"role": "user", "content": message}
                 ]
             )
-            return response.choices[0].message["content"]
+            return response.choices[0].message.content
         except Exception as e:
             return f"Error: {e}"
 
