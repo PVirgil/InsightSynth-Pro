@@ -26,7 +26,7 @@ class ChatAgent:
     def reply(user_id: str, message: str) -> str:
         try:
             response = client.chat.completions.create(
-                model="mixtral-8x7b-32768",
+                model="llama-3.1-8b-instant",
                 messages=[
                     {"role": "system", "content": "You are a business intelligence assistant."},
                     {"role": "user", "content": message}
