@@ -2,12 +2,12 @@ import streamlit as st
 import os
 from dotenv import load_dotenv
 import pandas as pd
-from openai import OpenAI
+from groq import Groq
 
 # Load environment variables
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=api_key)
+groq_api_key = os.getenv("GROQ_API_KEY")
+client = Groq(api_key=groq_api_key)
 
 # Simulated dashboard logic
 class InsightGenerator:
@@ -26,7 +26,7 @@ class ChatAgent:
     def reply(user_id: str, message: str) -> str:
         try:
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="mixtral-8x7b-32768",
                 messages=[
                     {"role": "system", "content": "You are a business intelligence assistant."},
                     {"role": "user", "content": message}
@@ -83,3 +83,4 @@ if user_id:
 
     if not df.empty:
         st.download_button("📥 Download Uploaded Data", df.to_csv(index=False), file_name="uploaded_data.csv")
+
